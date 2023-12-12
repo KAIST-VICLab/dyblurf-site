@@ -3,24 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="Dynamic Deblurring Neural Radiance Fields for Blurry Monocular Video.">
+  <meta name="keywords" content="DyBluRF, D-NeRF, NeRF, Deblur">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+  <title>DyBluRF: Dynamic Deblurring Neural Radiance Fields for Blurry Monocular Video</title>
+  <style>
+    @keyframes shake {
+      0% {transform: translateX(0);}
+      10%, 90% {transform: translateX(-5px);}
+      20%, 80% {transform: translateX(5px);}
+      30%, 50%, 70% {transform: translateX(-5px);}
+      40%, 60% {transform: translateX(5px);}
+      100% {transform: translateX(0);}
+    }
+    
+    #blur {
+      /* font-size: 60px; */
+      color: rgb(52,144,197);
+      filter: blur(3x);
+      -webkit-filter: blur(2.5px);
+      animation: shake 1s infinite;
+      display: inline-block;; 
+      clear: none;
+    }
+    #shake {
+      /* font-size: 60px; */
+      animation: shake 1s infinite;
+      display: inline-block;; 
+      clear: none;
+    }
+  </style>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -32,13 +47,14 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="icon" sizes="192x192" href="./static/images/icon.png" type="image/png"/>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
 </head>
 <body>
 
@@ -52,7 +68,7 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
+      <a class="navbar-item" href="https://www.viclab.kaist.ac.kr">
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
@@ -60,20 +76,35 @@
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          More Research
+          Related Works
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
+          <a class="navbar-item" href="https://hangg7.com/dycheck/">
+            Dycheck (Neurips 2022)
           </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
+          <a class="navbar-item" href="https://robust-dynrf.github.io/">
+            RoDynRF (CVPR 2023)
           </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
+          <a class="navbar-item" href="https://caoang327.github.io/HexPlane/">
+            HexPlane (CVPR 2023)
           </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
+          <a class="navbar-item" href="https://wangpeng000.github.io/BAD-NeRF/">
+            BAD-NeRF (CVPR 2023)
+          </a>
+          <a class="navbar-item" href="https://dogyoonlee.github.io/dpnerf/">
+            DP-NeRF (CVPR 2023)
+          </a>
+          <a class="navbar-item" href="https://jaminfong.cn/tineuvox/">
+            TiNeuVox (ACM SIGGRAPH Asia 2022)
+          </a>
+          <a class="navbar-item" href="https://hypernerf.github.io/">
+            HyperNeRF (ACM Trans. Graph. 2021)
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io/">
+            Nerfies (ICCV 2021)
+          </a>
+          <a class="navbar-item" href="https://www.cs.cornell.edu/~zl548/NSFF/">
+            NSFF (CVPR 2021)
           </a>
         </div>
       </div>
@@ -88,39 +119,38 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <div class="title is-1 publication-title"><h1 id="blur">DyBluRF: </h1> <img id="shake" src="./static/images/icon.png" width="42", height="42"> <h1 style="display: inline; clear:none;">Dynamic Deblurring Neural Radiance Fields for Blurry Monocular Video</h1></div>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <a href="https://www.viclab.kaist.ac.kr/">Minh-Quan Viet Bui</a><sup>* 1</sup>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <a href="https://www.viclab.kaist.ac.kr/">Jongmin Park</a><sup>* 1</sup>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
+              <a href="https://sites.google.com/view/ozbro/">Jihyong Oh</a><sup>* 2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              <a href="https://www.viclab.kaist.ac.kr/">Munchurl Kim</a><sup>† 1</sup>
             </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+            <span class="author-block"><sup>*</sup>Co-first authors (equal contribution)</span>
+            <!-- <span class="author-block"><sup>†</sup>Corresponding author</span> -->
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"> <sup>†</sup>Corresponding author</span>
+            <!-- <span class="author-block"><sup>†</sup>Corresponding author</span> -->
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>KAIST, South Korea</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Chung-Ang University, South Korea</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -129,7 +159,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -139,7 +169,7 @@
               </span>
               <!-- Video Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -149,17 +179,17 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (To be released)</span>
                   </a>
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -175,72 +205,25 @@
   </div>
 </section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-      </h2>
-    </div>
-  </div>
-</section>
-
-
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
+        <div class="item item-paper-windmill">
+          <video poster="" id="paper-windmill" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/DyBluRF_1_paper-windmill.mp4"
                     type="video/mp4">
           </video>
         </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
+        <div class="item item-block">
+          <video poster="" id="block" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/DyBluRF_2_block.mp4"
                     type="video/mp4">
           </video>
         </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
+        <div class="item item-wheel">
+          <video poster="" id="wheel" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/DyBluRF_3_wheel.mp4"
                     type="video/mp4">
           </video>
         </div>
@@ -248,41 +231,35 @@
     </div>
   </div>
 </section>
-
+<script>
+bulmaCarousel.attach('#results-carousel', {
+  slidesToShow: 2,
+  loop: true,
+  pagination: false,
+});
+</script>
 
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            Video view synthesis, allowing for the creation of visually appealing frames from arbitrary viewpoints and times, offers immersive viewing experiences. 
+            Neural radiance fields, particularly NeRF, initially developed for static scenes, have spurred the creation of various methods for video view synthesis. 
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
+            However, the challenge for video view synthesis arises from motion blur, a consequence of object or camera movement during exposure, which hinders the precise synthesis of sharp spatio-temporal views. 
+            In response, we propose a novel dynamic deblurring NeRF framework for blurry monocular video, called DyBluRF, consisting of an Interleave Ray Refinement (IRR) stage and a Motion Decomposition-based Deblurring (MDD) stage. 
           </p>
+          Our DyBluRF is the first that addresses and handles the novel view synthesis for blurry monocular video. 
+            The IRR stage jointly reconstructs dynamic 3D scenes and refines the inaccurate camera pose information to combat imprecise pose information extracted from the given blurry frames. 
+            The MDD stage is a novel incremental latent sharp-rays prediction (ILSP) approach for the blurry monocular video frames by decomposing the latent sharp rays into global camera motion and local object motion components. 
+            Extensive experimental results demonstrate that our DyBluRF outperforms qualitatively and quantitatively the very recent state-of-the-art methods.
           <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+
           </p>
         </div>
       </div>
@@ -291,10 +268,10 @@
 
     <!-- Paper video. -->
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full">
         <h2 class="title is-3">Video</h2>
         <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+          <iframe src=""
                   frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
       </div>
@@ -303,107 +280,125 @@
   </div>
 </section>
 
-
 <section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
+  <div class="container is-widescreen">
+    <h2 class="title is-3">Framework Architecture</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+        <image src="./static/images/DDNeRF_Architecture_v21.png" class="img-responsive" alt="DDNeRF_Architecture_v21"><br>
+        <div class="content has-text-justified">
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            <b>Overview of our DyBluRF framework.</b> To effectively optimize the sharp radiance field with the imprecise camera poses extracted from blurry video frames, 
+            we design our DyBluRF consisting of two main procedures of (a) <i>Interleave Ray Refinement Stage</i> and (b) <i>Motion Decomposition-based Deblurring Stage</i>.
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-widescreen">
+    <h2 class="title is-3">SOTA Comparison: Dynamic Deblurring Novel View Synthesis Evaluation on Blurry iPhone Dataset</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        To validate the quality of deblurring monocular video novel view synthesis of our DyBluRF, 
+        we compare it with the existing dynamic novel view synthesis methods including <a href="https://caoang327.github.io/HexPlane/">HexPlane</a>, 
+        <a href="https://hypernerf.github.io/">HyperNeRF</a> as well as the existing deblurring novel 
+        view synthesis methods <a href="https://dogyoonlee.github.io/dpnerf/">DP-NeRF</a> and <a href="https://wangpeng000.github.io/BAD-NeRF/">BAD-NeRF</a>. 
+        All methods are optimized using the newly synthesized Blurry iPhone Dataset. 
+        For the existing deblurring novel view synthesis methods, <a href="https://dogyoonlee.github.io/dpnerf/">DP-NeRF</a> and <a href="https://wangpeng000.github.io/BAD-NeRF/">BAD-NeRF</a>, which are originally designed solely for static novel view synthesis, 
+        we incorporate time instances as additional inputs to make them synthesize dynamic components for a fair comparison. 
+      </p>
+    </div>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content">
+            <img src="./static/images/psnr_ssim.png" alt="Graph for quality evaluation">
+          </div>
+        </div>
+      </div>
+      
       <!--/ Visual Effects. -->
 
       <!-- Matting. -->
       <div class="column">
-        <h2 class="title is-3">Matting</h2>
         <div class="columns is-centered">
           <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
+            <img src="./static/images/lpips_tof.png" alt="Graph for perfomance evaluation">
           </div>
-
         </div>
       </div>
     </div>
-    <!--/ Matting. -->
+    <div class="content has-text-justified">
+      <p>
+        We utilize the co-visibility masked image metrics, including mPSNR, mSSIM, and mLPIPS, 
+        following the approach introduced by <a href="https://hangg7.com/dycheck/">Dycheck</a>. These metrics mask out the regions of the test video frames which are not observed by the training camera. 
+        We further utilize <a href="https://arxiv.org/abs/1811.09393">tOF</a> to measure the temporal consistency of reconstructed video frames.
+      </p>
+      <image src="./static/images/figure1_v7.png" class="img-responsive" alt="DDNeRF_Architecture_v21"></image>
+    </div>
+  </div>
+</section>
 
+<section class="section">
+  <div class="container is-widescreen">
+    <h2 class="title is-3">Robustness of DyBluRF for Dynamic Novel View Synthesis</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        Our DyBluRF trained with the Blurry iPhone Dataset ('Trained w/
+        Blurry') with inaccurate camera poses even shows comparable
+        results with the SOTA methods trained with the original iPhone
+        Dataset ('Trained w/ Sharp') with accurate camera poses.
+      </p>
+    </div>
+
+    <div class="row" style="display: flex; margin-bottom: 2%;">
+      <div class="col-md-4 " style="width: 50%; margin-right: 5%;">
+        <image src="./static/images/table2.png" class="img-responsive" alt="DDNeRF_Architecture_v21"><br>
+          <div class="content has-text-justified">
+            <p style="margin:0;display:inline;"> <b>Dynamic novel view synthesis evaluation.</b> </p>
+            <p style="color:red; margin:0;display:inline;"><b>Red</b></p> and <p style="color:blue; margin:0;display:inline;"><u>blue</u></p> denote the best and second best performances, respectively.
+            
+          </div>
+      </div>
+      <div class="col-md-4" style="width: 42%;">
+          <video class="video" id="viz_input_input" loop playsinline autoplay muted controls src="./static/videos/DyBluRF_4_apple_table2.mp4" ></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-widescreen">
     <!-- Animation. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
+        <h2 class="title is-3">Visual Deblurring Effect</h2>
+        <!-- Deblurring. -->
+        <h3 class="title is-4">
+          
+        </h3>
         <div class="content has-text-justified">
           <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
+            Here, we compare the reconstructed images of our DyBluRF with the original blurry input images. By using the Motion Decomposition-based Deblurring process, DyBluRF can effectively remove the blurriness due to camera shake and object motion.
           </p>
         </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
+        <div class="row" style="display: flex; margin-bottom: 2%;">
+          <div class="col-md-4" style="width: 33%;">
+              <video class="video" id="viz_input_input" loop playsinline autoplay muted controls src="./static/videos/viz_input_input.mp4" ></video>
           </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
+          <div class="col-md-4 " style="width: 33%;">
+              <video class="video" id="viz_input_dyblurf" loop playsinline autoplay muted controls src="./static/videos/viz_input_dyblurf.mp4"></video>
           </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
+          <div class="col-md-4" style="width: 33%;">
+              <video class="video" id="viz_input" loop playsinline autoplay muted src="./static/videos/viz_input.mp4" onplay="resizeAndPlay(this)"></video>
+              <canvas height=0 class="videoMerge" id="viz_inputMerge"></canvas>
           </div>
         </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
 
       </div>
     </div>
@@ -413,24 +408,12 @@
     <!-- Concurrent Work. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
+        <h2 class="title is-3">Acknowledgement</h2>
 
         <div class="content has-text-justified">
           <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+            Our blurry dataset and implementation are built on top of <a href="https://hangg7.com/dycheck/">Dycheck</a>'s dataset and codebase.
+            <a href="https://hangg7.com/dycheck/">Dycheck</a> consists of casual captures with strict monocular constraint for dynamic view synthesis.
           </p>
         </div>
       </div>
@@ -441,8 +424,8 @@
 </section>
 
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-widescreen content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{park2021nerfies,
   author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
@@ -451,17 +434,17 @@
   year      = {2021},
 }</code></pre>
   </div>
-</section>
+</section> -->
 
 
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
+         href="">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/KAIST-VICLab" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -469,16 +452,8 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            We thank the authors of <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>  that kindly open sourced the template of this website. 
+            Please visit our <a href="https://github.com/KAIST-VICLab">VIC-Lab</a> for more interesting researches
           </p>
         </div>
       </div>
