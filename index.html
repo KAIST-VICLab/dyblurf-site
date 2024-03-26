@@ -63,6 +63,17 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
   <script src="./static/js/video_comparison.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      jax: ["input/TeX", "output/HTML-CSS"],
+      extensions: ["tex2jax.js"],
+      "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] },
+      tex2jax: { inlineMath: [ ["$", "$"], ["\\(","\\)"] ], displayMath: [ ["$$","$$"], ["\\[", "\\]"] ], processEscapes: true, ignoreClass: "tex2jax_ignore|dno" },
+      TeX: { noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } } },
+      messageStyle: "none"
+    });
+    </script>    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 </head>
 <body>
 
@@ -138,7 +149,7 @@
             <span class="author-block">
               <a target="_blank" rel="noopener noreferrer" href="https://www.viclab.kaist.ac.kr/">Jongmin Park</a><sup>* 1</sup>&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <span class="author-block">
-              <a target="_blank" rel="noopener noreferrer" href="https://sites.google.com/view/ozbro/">Jihyong Oh</a><sup>* 2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a target="_blank" rel="noopener noreferrer" href="https://sites.google.com/view/ozbro/">Jihyong Oh</a><sup>† 2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             <span class="author-block">
               <a target="_blank" rel="noopener noreferrer" href="https://www.viclab.kaist.ac.kr/">Munchurl Kim</a><sup>† 1</sup>
@@ -150,7 +161,7 @@
             <!-- <span class="author-block"><sup>†</sup>Corresponding author</span> -->
           </div>
           <div class="is-size-5 publication-authors">
-            <span class="author-block"> <sup>†</sup>Corresponding author</span>
+            <span class="author-block"> <sup>†</sup>Corresponding author (equal advising)</span>
             <!-- <span class="author-block"><sup>†</sup>Corresponding author</span> -->
           </div>
           <div class="is-size-5 publication-authors">
@@ -181,7 +192,7 @@
               </span>
               <!-- Video Link. -->
               <span class="link-block">
-                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=vYWf33hZXkI&ab_channel=VICLabKAIST"
+                <a target="_blank" rel="noopener noreferrer" href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -190,7 +201,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=UF5QTWF3_Dg"
+                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=jJeUCPWlsDA&ab_channel=VICLabKAIST"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-youtube"></i>
@@ -200,7 +211,7 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a target="_blank" rel="noopener noreferrer" href="https://github.com/KAIST-VICLab"
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/KAIST-VICLab/DyBluRF"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -210,7 +221,7 @@
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a target="_blank" rel="noopener noreferrer" href="https://github.com/KAIST-VICLab"
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/KAIST-VICLab/DyBluRF"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
@@ -226,39 +237,27 @@
   </div>
 </section>
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-paper-windmill">
-          <video poster="" id="paper-windmill" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/DyBluRF_1_paper-windmill.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-block">
-          <video poster="" id="block" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/DyBluRF_2_block.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-wheel">
-          <video poster="" id="wheel" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/DyBluRF_3_wheel.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
+<section class="section" style="background-color: #f5f5f5;">
+  <div class="container is-widescreen">
+    <div class="row" style="display: flex; margin-bottom: 2%; justify-content: space-between;">
+      <div class="col-md-4" style="width: 33%; padding: 10px; background-color: black; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; ">
+          <h2 class="title is-3" style="color: white;"> Varying Time & Fixed Pose</h2>
+          <video class="video" id="fixed_view" loop playsinline muted controls src="./static/videos/fixed_view.mp4" ></video>
       </div>
+      <div class="col-md-4 " style="width: 33%; padding: 10px; background-color: black; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;">
+          <h2 class="title is-3" style="color: white;"> Varying Pose & Fixed Time</h2>
+          <video class="video" id="fixed_time" loop playsinline muted controls src="./static/videos/fixed_time.mp4"></video>
+      </div>
+      <div class="col-md-4 " style="width: 33%; padding: 10px; background-color: black; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;">
+        <h2 class="title is-3" style="color: white;"> Varying Both Pose & Time</h2>
+        <video class="video" id="bullet_time" loop playsinline muted controls src="./static/videos/bullet_time.mp4"></video>
+    </div>
     </div>
   </div>
 </section>
-<script>
-bulmaCarousel.attach('#results-carousel', {
-  slidesToShow: 2,
-  loop: true,
-  pagination: false,
-});
-</script>
+
+
+
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -268,17 +267,17 @@ bulmaCarousel.attach('#results-carousel', {
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Video view synthesis, allowing for the creation of visually appealing frames from arbitrary viewpoints and times, offers immersive viewing experiences. 
-            Neural radiance fields, particularly NeRF, initially developed for static scenes, have spurred the creation of various methods for video view synthesis. 
+            Neural Radiance Fields (NeRF), initially developed for static scenes, have inspired many video novel view synthesis techniques. 
+            However, the challenge for video view synthesis arises from motion blur, a consequence of object or camera movement during exposure, which hinders the precise synthesis of sharp spatio-temporal views. 
           </p>
           <p>
-            However, the challenge for video view synthesis arises from motion blur, a consequence of object or camera movement during exposure, which hinders the precise synthesis of sharp spatio-temporal views. 
-            In response, we propose a novel dynamic deblurring NeRF framework for blurry monocular video, called DyBluRF, consisting of an Interleave Ray Refinement (IRR) stage and a Motion Decomposition-based Deblurring (MDD) stage. 
+            In response, we propose a novel dynamic deblurring NeRF framework for blurry monocular video, called DyBluRF, consisting of a Base Ray Initialization (BRI) stage and a Motion Decomposition-based Deblurring (MDD) stage. 
+            Our DyBluRF is the first that handles the novel view synthesis for blurry monocular video with a novel two-stage framework.
           </p>
-          Our DyBluRF is the first that addresses and handles the novel view synthesis for blurry monocular video. 
-            The IRR stage jointly reconstructs dynamic 3D scenes and refines the inaccurate camera pose information to combat imprecise pose information extracted from the given blurry frames. 
-            The MDD stage is a novel incremental latent sharp-rays prediction (ILSP) approach for the blurry monocular video frames by decomposing the latent sharp rays into global camera motion and local object motion components. 
-            Extensive experimental results demonstrate that our DyBluRF outperforms qualitatively and quantitatively the very recent state-of-the-art methods.
+          In the BRI stage, we coarsely reconstruct dynamic 3D scenes and jointly initialize the base ray, which is further used to predict latent sharp rays, using the inaccurate camera pose information from the given blurry frames. 
+          In the MDD stage, we introduce a novel Incremental Latent Sharp-rays Prediction (ILSP) approach for the blurry monocular video frames by decomposing the latent sharp rays into global camera motion and local object motion components. 
+          We further propose two loss functions for effective geometry regularization and decomposition of static and dynamic scene components without any mask supervision. 
+          Experiments show that DyBluRF outperforms qualitatively and quantitatively the SOTA methods.
           <p>
 
           </p>
@@ -306,11 +305,12 @@ bulmaCarousel.attach('#results-carousel', {
     <h2 class="title is-3">Framework Architecture</h2>
     <div class="columns is-centered has-text-centered">
       <div class="column is-full">
-        <image src="./static/images/DDNeRF_Architecture_v21.png" class="img-responsive" alt="DDNeRF_Architecture_v21"><br>
+        <image src="./static/images/network.jpg" class="img-responsive" alt="network"><br>
         <div class="content has-text-justified">
           <p>
-            <b>Overview of our DyBluRF framework.</b> To effectively optimize the sharp radiance field with the imprecise camera poses extracted from blurry video frames, 
-            we design our DyBluRF consisting of two main procedures of (a) <i>Interleave Ray Refinement Stage</i> and (b) <i>Motion Decomposition-based Deblurring Stage</i>.
+            <b>Overview of our DyBluRF framework.</b> To effectively optimize the sharp radiance field with the imprecise camera poses extracted from blurry video frames, we design our DyBluRF consisting of two main procedures
+            (Algo. <mark class="red">2</mark> in <i>Supplemental</i>) of (a) <i>Base Ray Initialization (BRI) Stage</i> (Sec. <mark class="red">3.3</mark> and 
+            Algo. <mark class="red">1</mark> in <i>Supplemental</i>) and (b) <i>Motion Decomposition-based Deblurring (MDD) Stage</i> (Sec. <mark class="red">3.4</mark>).
           </p>
         </div>
       </div>
@@ -320,17 +320,17 @@ bulmaCarousel.attach('#results-carousel', {
 
 <section class="section">
   <div class="container is-widescreen">
-    <h2 class="title is-3">SOTA Comparison: Dynamic Deblurring Novel View Synthesis Evaluation on Blurry iPhone Dataset</h2>
+    <h2 class="title is-3">Dynamic Deblurring Novel View Synthesis</h2>
 
     <div class="content has-text-justified">
       <p>
         To validate the quality of deblurring monocular video novel view synthesis of our DyBluRF, 
         we compare it with the existing dynamic novel view synthesis methods including <a target="_blank" rel="noopener noreferrer" href="https://caoang327.github.io/HexPlane/">HexPlane</a>, 
-        <a target="_blank" rel="noopener noreferrer" href="https://hypernerf.github.io/">HyperNeRF</a> as well as the existing deblurring novel 
+        <a target="_blank" rel="noopener noreferrer" href="https://hypernerf.github.io/">HyperNeRF</a>, <a target="_blank" rel="noopener noreferrer" href="https://guanjunwu.github.io/4dgs/">4DGS</a> as well as the existing static deblurring novel 
         view synthesis methods <a target="_blank" rel="noopener noreferrer" href="https://dogyoonlee.github.io/dpnerf/">DP-NeRF</a> and <a target="_blank" rel="noopener noreferrer" href="https://wangpeng000.github.io/BAD-NeRF/">BAD-NeRF</a>. 
         All methods are optimized using the newly synthesized Blurry iPhone Dataset. 
-        For the existing deblurring novel view synthesis methods, <a target="_blank" rel="noopener noreferrer" href="https://dogyoonlee.github.io/dpnerf/">DP-NeRF</a> and <a target="_blank" rel="noopener noreferrer" href="https://wangpeng000.github.io/BAD-NeRF/">BAD-NeRF</a>, which are originally designed solely for static novel view synthesis, 
-        we incorporate time instances as additional inputs to make them synthesize dynamic components for a fair comparison. 
+        For the existing static deblurring novel view synthesis methods, <a target="_blank" rel="noopener noreferrer" href="https://dogyoonlee.github.io/dpnerf/">DP-NeRF</a> and <a target="_blank" rel="noopener noreferrer" href="https://wangpeng000.github.io/BAD-NeRF/">BAD-NeRF</a>, which are originally designed solely for static novel view synthesis, 
+        we incorporate time instances as additional inputs, resulting in DP-NeRF$_t$ and BAD-NeRF$_t$, to make them synthesize dynamic components for a fair comparison. 
       </p>
     </div>
     <div class="columns is-centered">
@@ -359,73 +359,44 @@ bulmaCarousel.attach('#results-carousel', {
         following the approach introduced by <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">Dycheck</a>. These metrics mask out the regions of the test video frames which are not observed by the training camera. 
         We further utilize <a target="_blank" rel="noopener noreferrer" href="https://arxiv.org/abs/1811.09393">tOF</a> to measure the temporal consistency of reconstructed video frames.
       </p>
-      <image src="./static/images/figure1_v7.png" class="img-responsive" alt="DDNeRF_Architecture_v21"></image>
+      <image src="./static/images/result.png" class="img-responsive" alt="result"></image>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container is-widescreen">
-    <h2 class="title is-3">Robustness of DyBluRF for Dynamic Novel View Synthesis</h2>
+    <h2 class="title is-3">Robustness of DyBluRF against Degrees of Blurriness</h2>
+
+    <div class="content has-text-justified">
+      <p style="margin:0;display:inline;">
+        The below table shows the robustness of DyBluRF across varying dataset capture qualities. 
+        We evaluate the dynamic novel view synthesis performance of <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">T-NeRF</a>, <a target="_blank" rel="noopener noreferrer" href="https://hypernerf.github.io/">HyperNeRF</a>, 
+        and DyBluRF by training each method with two datasets: the original iPhone dataset or our newly synthesized Blurry iPhone dataset. 
+        As shown, both <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">T-NeRF</a> and <a target="_blank" rel="noopener noreferrer" href="https://hypernerf.github.io/">HyperNeRF</a> experience substantial performance declines across all metrics 
+        with the Blurry iPhone dataset compared to their performance with the original iPhone dataset, underscoring the challenge posed by our Blurry iPhone dataset for dynamic novel view synthesis without a deblurring module. 
+        In contrast, DyBluRF maintains consistent results between the two datasets across all metrics, demonstrating its robustness to different degrees of blurriness.
+      </p>
+      <p style="color:red; margin:0;display:inline;"><b>Red</b></p> and <p style="color:blue; margin:0;display:inline;"><u>blue</u></p> denote the best and second best performances, respectively.
+    </div>
+    <div class="content has-text-justified" style="display: flex; justify-content: center;">
+      <img src="./static/images/table2.png" class="img-responsive" alt="table2" style="max-width: 100%; height: auto;">
+    </div>
 
     <div class="content has-text-justified">
       <p>
-        Our DyBluRF trained with the Blurry iPhone Dataset ('Trained w/
-        Blurry') with inaccurate camera poses even shows comparable
-        results with the SOTA methods trained with the original iPhone
-        Dataset ('Trained w/ Sharp') with accurate camera poses.
+        As shown in the below figure, DyBluRF adaptively predicts latent rays to stably model the physical blur process, maintaining the sharpness of the base ray's rendering color $\hat{\mathbf{C}}^{full}$ regardless of the degrees of blurriness in the training frames.
+        Other methods fail to learn the reliable sharp reconstruction from blurry training frames due to the absence of a temporal-aware deblurring module.
       </p>
     </div>
-
-    <div class="row" style="display: flex; margin-bottom: 2%;">
-      <div class="col-md-4 " style="width: 50%; margin-right: 5%;">
-        <image src="./static/images/table2.png" class="img-responsive" alt="DDNeRF_Architecture_v21"><br>
-          <div class="content has-text-justified">
-            <p style="margin:0;display:inline;"> <b>Dynamic novel view synthesis evaluation.</b> </p>
-            <p style="color:red; margin:0;display:inline;"><b>Red</b></p> and <p style="color:blue; margin:0;display:inline;"><u>blue</u></p> denote the best and second best performances, respectively.
-            
-          </div>
-      </div>
-      <div class="col-md-4" style="width: 42%;">
-          <video class="video" id="viz_input_input" loop playsinline autoplay muted controls src="./static/videos/DyBluRF_4_apple_table2.mp4" ></video>
-      </div>
+    <div class="content has-text-justified">
+      <image src="./static/images/figure_robust.png" class="img-responsive" alt="figure_robust">
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="container is-widescreen">
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Visual Deblurring Effect</h2>
-        <!-- Deblurring. -->
-        <h3 class="title is-4">
-          
-        </h3>
-        <div class="content has-text-justified">
-          <p>
-            Here, we compare the reconstructed images of our DyBluRF with the original blurry input images. By using the Motion Decomposition-based Deblurring process, DyBluRF can effectively remove the blurriness due to camera shake and object motion.
-          </p>
-        </div>
-        <div class="row" style="display: flex; margin-bottom: 2%;">
-          <div class="col-md-4" style="width: 33%;">
-              <video class="video" id="viz_input_input" loop playsinline autoplay muted controls src="./static/videos/viz_input_input.mp4" ></video>
-          </div>
-          <div class="col-md-4 " style="width: 33%;">
-              <video class="video" id="viz_input_dyblurf" loop playsinline autoplay muted controls src="./static/videos/viz_input_dyblurf.mp4"></video>
-          </div>
-          <div class="col-md-4" style="width: 33%;">
-              <video class="video" id="viz_input" loop playsinline autoplay muted src="./static/videos/viz_input.mp4" onplay="resizeAndPlay(this)"></video>
-              <canvas height=0 class="videoMerge" id="viz_inputMerge"></canvas>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
     <!-- Concurrent Work. -->
     <div class="columns is-centered">
       <div class="column is-full-width">
@@ -433,7 +404,7 @@ bulmaCarousel.attach('#results-carousel', {
 
         <div class="content has-text-justified">
           <p>
-            Our blurry dataset and implementation are built on top of <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">Dycheck</a>'s dataset and codebase.
+            Our blurry dataset and implementation are built on top of <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">Dycheck</a> codebase.
             <a target="_blank" rel="noopener noreferrer" href="https://hangg7.com/dycheck/">Dycheck</a> consists of casual captures with strict monocular constraint for dynamic view synthesis.
           </p>
         </div>
@@ -470,7 +441,7 @@ bulmaCarousel.attach('#results-carousel', {
          href="https://arxiv.org/pdf/2312.13528.pdf">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a target="_blank" rel="noopener noreferrer" class="icon-link" href="https://github.com/KAIST-VICLab" class="external-link" disabled>
+      <a target="_blank" rel="noopener noreferrer" class="icon-link" href="https://github.com/KAIST-VICLab/DyBluRF" class="external-link" disabled>
         <i class="fab fa-github"></i>
       </a>
     </div>
