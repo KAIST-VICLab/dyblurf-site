@@ -237,7 +237,7 @@
   </div>
 </section>
 
-<section class="section" style="background-color: #f5f5f5;">
+<!-- <section class="section" style="background-color: #f5f5f5;">
   <div class="container is-widescreen">
     <div class="row" style="display: flex; margin-bottom: 2%; justify-content: space-between;">
       <div class="col-md-4" style="width: 33%; padding: 10px; background-color: black; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; ">
@@ -254,8 +254,41 @@
     </div>
     </div>
   </div>
-</section>
+</section> -->
 
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-fixed_view has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none;">
+          <h2 class="title is-3"> Varying Time & Fixed Pose</h2>
+          <video poster="" id="fixed_view" loop playsinline muted controls style="max-height: 100%;">
+            <source src="./static/videos/fixed_view.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fixed_time has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none;">
+          <h2 class="title is-3"> Varying Pose & Fixed Time</h2>
+          <video poster="" id="fixed_time" loop playsinline muted controls style="max-height: 100%;">
+            <source src="./static/videos/fixed_time.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-bullet_time has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none;">
+          <h2 class="title is-3"> Varying Both Pose & Time</h2>
+          <video poster="" id="bullet_time" loop playsinline muted controls style="max-height: 100%;">
+            <source src="./static/videos/bullet_time.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+bulmaCarousel.attach('#results-carousel', {
+  slidesToShow: 1,
+  loop: true,
+  pagination: false,
+});
+</script>
 
 
 
