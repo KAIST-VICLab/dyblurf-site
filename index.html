@@ -264,19 +264,19 @@
       </div>
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-fixed_view has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none; margin-bottom: 15px;">
-          <video poster="" id="fixed_view" loop playsinline muted controls style="max-height: 100%; margin-bottom: 15px;">
+          <video poster="" id="fixed_view" loop playsinline muted controls style="max-height: 400px; margin-bottom: 15px;">
             <source src="./static/videos/fixed_view.mp4" type="video/mp4">
           </video>
           <h3 class="title is-4" > Varying Time & Fixed Pose</h3>
         </div>
         <div class="item item-fixed_time has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none; margin-bottom: 15px;">
-          <video poster="" id="fixed_time" loop playsinline muted controls style="max-height: 100%; margin-bottom: 15px;">
+          <video poster="" id="fixed_time" loop playsinline muted controls style="max-height: 400px; margin-bottom: 15px;">
             <source src="./static/videos/fixed_time.mp4" type="video/mp4">
           </video>
           <h3 class="title is-4"> Varying Pose & Fixed Time</h3>
         </div>
         <div class="item item-bullet_time has-text-centered" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; border: none; margin-bottom: 15px;">
-          <video poster="" id="bullet_time" loop playsinline muted controls style="max-height: 100%; margin-bottom: 15px;">
+          <video poster="" id="bullet_time" loop playsinline muted controls style="max-height: 400px; margin-bottom: 15px;">
             <source src="./static/videos/bullet_time.mp4" type="video/mp4">
           </video>
           <h3 class="title is-4"> Varying Both Pose & Time</h3>
@@ -293,6 +293,24 @@ bulmaCarousel.attach('#results-carousel', {
 });
 </script>
 
+<section class="section" align="center">
+  <div class="container is-widescreen">
+    <h2 class="title is-3 no-bottom">Deblurring Radiance Field</h2>
+      <div class="video-container" align="center" style="margin-top: 10px;">
+        <a onclick="togglePlay()">
+          <video class="video" id="viz_input" loop muted src="static/videos/paper-windmill.mp4" onloadeddata="initVideo()"></video>
+          <canvas height=0 class="videoMerge" id="viz_inputMerge"></canvas>
+        </a>
+      </div>
+
+      <!-- <div class="video-container" align="center" style="margin-top: 10px;">
+        <a onclick="togglePlay()">
+          <video class="video" id="viz_input" loop muted src="static/videos/paper-windmill.mp4" onloadeddata="initVideo()"></video>
+          <canvas height=0 class="videoMerge" id="viz_inputMerge"></canvas>
+        </a>
+      </div> -->
+  </div>
+</section>
 
 
 <section class="section">

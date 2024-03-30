@@ -165,3 +165,65 @@ mark.blue {
   color:#0000A0;
   background: none;
 }
+
+.results-carousel {
+  overflow: hidden;
+}
+
+.results-carousel .item {
+  margin: 5px;
+  overflow: hidden;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0;
+  font-size: 0;
+}
+
+.results-carousel video {
+  margin: 0;
+}
+
+.video-container {
+    margin: 0;
+    padding: 0;
+}
+
+.title.no-bottom {
+    margin-bottom: 0.0rem;
+}
+
+.video-container a {
+    margin: 0;
+    padding: 0;
+}
+
+.video-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.video-select a {
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.video-select a img {
+	opacity: 1;
+	-webkit-transition: .1s ease-in-out;
+	transition: .1s ease-in-out;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.video-select a:hover img {
+	opacity: .5;
+}
+
+.container:not(.is-max-desktop):not(.is-max-widescreen) {
+    max-width: 1000px;
+}
+
+.section {
+  padding: 1.5rem 1.5rem;
+}

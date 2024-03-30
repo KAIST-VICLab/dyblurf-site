@@ -9,15 +9,19 @@ function playVids(videoId) {
   var position = 0.5;
   var vidWidth = vid.videoWidth / 2;
   var vidHeight = vid.videoHeight;
+  var widthRatio = 400 / vidWidth;
+  videoMerge.width = 400;
+  videoMerge.height *= widthRatio;
 
   var mergeContext = videoMerge.getContext("2d");
 
   if (vid.readyState > 3) {
-    vid.play();
+    // vid.play();
 
     function trackLocation(e) {
       // Normalize to [0, 1]
       bcr = videoMerge.getBoundingClientRect();
+      console.log(e.pageX, bcr.width);
       position = (e.pageX - bcr.x) / bcr.width;
     }
     function trackLocationTouch(e) {
@@ -29,6 +33,7 @@ function playVids(videoId) {
     videoMerge.addEventListener("mousemove", trackLocation, false);
     videoMerge.addEventListener("touchstart", trackLocationTouch, false);
     videoMerge.addEventListener("touchmove", trackLocationTouch, false);
+    // videoMerge.addEventListener("click", trackClick, false);
 
     function drawLoop() {
       mergeContext.drawImage(
@@ -39,8 +44,8 @@ function playVids(videoId) {
         vidHeight,
         0,
         0,
-        vidWidth,
-        vidHeight
+        vidWidth * widthRatio,
+        vidHeight * widthRatio
       );
       var colStart = (vidWidth * position).clamp(0.0, vidWidth);
       var colWidth = (vidWidth - vidWidth * position).clamp(0.0, vidWidth);
@@ -50,19 +55,19 @@ function playVids(videoId) {
         0,
         colWidth,
         vidHeight,
-        colStart,
+        colStart * widthRatio,
         0,
-        colWidth,
-        vidHeight
+        colWidth * widthRatio,
+        vidHeight * widthRatio
       );
       requestAnimationFrame(drawLoop);
 
-      var arrowLength = 0.09 * vidHeight;
-      var arrowheadWidth = 0.025 * vidHeight;
-      var arrowheadLength = 0.04 * vidHeight;
-      var arrowPosY = vidHeight / 10;
-      var arrowWidth = 0.007 * vidHeight;
-      var currX = vidWidth * position;
+      var arrowLength = 0.05 * vidHeight * widthRatio;
+      var arrowheadWidth = 0.025 * vidHeight * widthRatio;
+      var arrowheadLength = 0.02 * vidHeight * widthRatio;
+      var arrowPosY = (vidHeight * widthRatio) / 2;
+      var arrowWidth = 0.007 * vidHeight * widthRatio;
+      var currX = vidWidth * widthRatio * position;
 
       // Draw circle
       mergeContext.arc(
@@ -80,8 +85,11 @@ function playVids(videoId) {
 
       // Draw border
       mergeContext.beginPath();
-      mergeContext.moveTo(vidWidth * position, 0);
-      mergeContext.lineTo(vidWidth * position, vidHeight);
+      mergeContext.moveTo(vidWidth * widthRatio * position, 0);
+      mergeContext.lineTo(
+        vidWidth * widthRatio * position,
+        vidHeight * widthRatio
+      );
       mergeContext.closePath();
       mergeContext.strokeStyle = "#AAAAAA";
       mergeContext.lineWidth = 5;
@@ -143,6 +151,23 @@ function playVids(videoId) {
 
       mergeContext.fillStyle = "#AAAAAA";
       mergeContext.fill();
+
+      mergeContext.fillStyle = "rgba(255, 255, 255, 0.4)";
+      mergeContext.fillRect(
+        (vidWidth * widthRatio) / 2 - 180,
+        vidHeight * 0.12,
+        360,
+        40
+      );
+
+      mergeContext.fillStyle = "#000000";
+      mergeContext.textAlign = "center";
+      mergeContext.font = "30px Arial";
+      mergeContext.fillText(
+        "Click to Pause or Resume",
+        (vidWidth * widthRatio) / 2,
+        vidHeight * 0.18
+      );
     }
     requestAnimationFrame(drawLoop);
   }
@@ -156,8 +181,38 @@ function resizeAndPlay(element) {
   var cv = document.getElementById(element.id + "Merge");
   cv.width = element.videoWidth / 2;
   cv.height = element.videoHeight;
-  element.play();
   element.style.height = "0px"; // Hide video without stopping it
 
   playVids(element.id);
+}
+
+var videoInitialized = false;
+
+function initVideo() {
+  if (videoInitialized === true) {
+    return;
+  }
+  videoInitialized = true;
+  vid = document.getElementById("viz_input");
+  var cv = document.getElementById(vid.id + "Merge");
+  cv.width = vid.videoWidth / 2;
+  cv.height = vid.videoHeight;
+  vid.play();
+  vid.style.height = "0px"; // Hide video without stopping it
+  playVids(vid.id);
+}
+
+function changeVideo(videoSrc) {
+  vid = document.getElementById("viz_input");
+  vid.src = videoSrc;
+  vid.play();
+}
+
+function togglePlay() {
+  vid = document.getElementById("viz_input");
+  if (vid.paused) {
+    vid.play();
+  } else {
+    vid.pause();
+  }
 }
