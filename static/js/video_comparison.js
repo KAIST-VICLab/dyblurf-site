@@ -154,15 +154,15 @@ function playVids(videoId) {
 
       mergeContext.fillStyle = "rgba(255, 255, 255, 0.4)";
       mergeContext.fillRect(
-        (vidWidth * widthRatio) / 2 - 180,
-        vidHeight * 0.12,
-        360,
-        40
+        (vidWidth * widthRatio) / 2 - 160,
+        vidHeight * 0.13,
+        320,
+        30
       );
 
       mergeContext.fillStyle = "#000000";
       mergeContext.textAlign = "center";
-      mergeContext.font = "30px Arial";
+      mergeContext.font = "25px Arial";
       mergeContext.fillText(
         "Click to Pause or Resume",
         (vidWidth * widthRatio) / 2,
